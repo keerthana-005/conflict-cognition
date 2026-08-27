@@ -10,33 +10,200 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as SettingsIndexRouteImport } from './routes/settings.index'
+import { Route as SettingsProfileRouteImport } from './routes/settings.profile'
+import { Route as WorkspaceWorkspaceIdRouteImport } from './routes/workspace.$workspaceId'
+import { Route as WorkspaceWorkspaceIdIndexRouteImport } from './routes/workspace.$workspaceId.index'
+import { Route as WorkspaceWorkspaceIdAuditLogRouteImport } from './routes/workspace.$workspaceId.audit-log'
+import { Route as WorkspaceWorkspaceIdIngestionRouteImport } from './routes/workspace.$workspaceId.ingestion'
+import { Route as WorkspaceWorkspaceIdChatChatIdRouteImport } from './routes/workspace.$workspaceId.chat.$chatId'
+import { Route as WorkspaceWorkspaceIdConflictsIndexRouteImport } from './routes/workspace.$workspaceId.conflicts.index'
+import { Route as WorkspaceWorkspaceIdConflictsConflictIdRouteImport } from './routes/workspace.$workspaceId.conflicts.$conflictId'
+import { Route as WorkspaceWorkspaceIdEntityEntityIdRouteImport } from './routes/workspace.$workspaceId.entity.$entityId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsIndexRoute = SettingsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsProfileRoute = SettingsProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const WorkspaceWorkspaceIdRoute = WorkspaceWorkspaceIdRouteImport.update({
+  id: '/workspace/$workspaceId',
+  path: '/workspace/$workspaceId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkspaceWorkspaceIdIndexRoute =
+  WorkspaceWorkspaceIdIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => WorkspaceWorkspaceIdRoute,
+  } as any)
+const WorkspaceWorkspaceIdAuditLogRoute =
+  WorkspaceWorkspaceIdAuditLogRouteImport.update({
+    id: '/audit-log',
+    path: '/audit-log',
+    getParentRoute: () => WorkspaceWorkspaceIdRoute,
+  } as any)
+const WorkspaceWorkspaceIdIngestionRoute =
+  WorkspaceWorkspaceIdIngestionRouteImport.update({
+    id: '/ingestion',
+    path: '/ingestion',
+    getParentRoute: () => WorkspaceWorkspaceIdRoute,
+  } as any)
+const WorkspaceWorkspaceIdChatChatIdRoute =
+  WorkspaceWorkspaceIdChatChatIdRouteImport.update({
+    id: '/chat/$chatId',
+    path: '/chat/$chatId',
+    getParentRoute: () => WorkspaceWorkspaceIdRoute,
+  } as any)
+const WorkspaceWorkspaceIdConflictsIndexRoute =
+  WorkspaceWorkspaceIdConflictsIndexRouteImport.update({
+    id: '/conflicts/',
+    path: '/conflicts/',
+    getParentRoute: () => WorkspaceWorkspaceIdRoute,
+  } as any)
+const WorkspaceWorkspaceIdConflictsConflictIdRoute =
+  WorkspaceWorkspaceIdConflictsConflictIdRouteImport.update({
+    id: '/conflicts/$conflictId',
+    path: '/conflicts/$conflictId',
+    getParentRoute: () => WorkspaceWorkspaceIdRoute,
+  } as any)
+const WorkspaceWorkspaceIdEntityEntityIdRoute =
+  WorkspaceWorkspaceIdEntityEntityIdRouteImport.update({
+    id: '/entity/$entityId',
+    path: '/entity/$entityId',
+    getParentRoute: () => WorkspaceWorkspaceIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/settings': typeof SettingsRouteWithChildren
+  '/signup': typeof SignupRoute
+  '/settings/profile': typeof SettingsProfileRoute
+  '/workspace/$workspaceId': typeof WorkspaceWorkspaceIdRouteWithChildren
+  '/settings/': typeof SettingsIndexRoute
+  '/workspace/$workspaceId/audit-log': typeof WorkspaceWorkspaceIdAuditLogRoute
+  '/workspace/$workspaceId/ingestion': typeof WorkspaceWorkspaceIdIngestionRoute
+  '/workspace/$workspaceId/': typeof WorkspaceWorkspaceIdIndexRoute
+  '/workspace/$workspaceId/chat/$chatId': typeof WorkspaceWorkspaceIdChatChatIdRoute
+  '/workspace/$workspaceId/conflicts/$conflictId': typeof WorkspaceWorkspaceIdConflictsConflictIdRoute
+  '/workspace/$workspaceId/entity/$entityId': typeof WorkspaceWorkspaceIdEntityEntityIdRoute
+  '/workspace/$workspaceId/conflicts/': typeof WorkspaceWorkspaceIdConflictsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
+  '/settings/profile': typeof SettingsProfileRoute
+  '/settings': typeof SettingsIndexRoute
+  '/workspace/$workspaceId/audit-log': typeof WorkspaceWorkspaceIdAuditLogRoute
+  '/workspace/$workspaceId/ingestion': typeof WorkspaceWorkspaceIdIngestionRoute
+  '/workspace/$workspaceId': typeof WorkspaceWorkspaceIdIndexRoute
+  '/workspace/$workspaceId/chat/$chatId': typeof WorkspaceWorkspaceIdChatChatIdRoute
+  '/workspace/$workspaceId/conflicts/$conflictId': typeof WorkspaceWorkspaceIdConflictsConflictIdRoute
+  '/workspace/$workspaceId/entity/$entityId': typeof WorkspaceWorkspaceIdEntityEntityIdRoute
+  '/workspace/$workspaceId/conflicts': typeof WorkspaceWorkspaceIdConflictsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/settings': typeof SettingsRouteWithChildren
+  '/signup': typeof SignupRoute
+  '/settings/profile': typeof SettingsProfileRoute
+  '/workspace/$workspaceId': typeof WorkspaceWorkspaceIdRouteWithChildren
+  '/settings/': typeof SettingsIndexRoute
+  '/workspace/$workspaceId/audit-log': typeof WorkspaceWorkspaceIdAuditLogRoute
+  '/workspace/$workspaceId/ingestion': typeof WorkspaceWorkspaceIdIngestionRoute
+  '/workspace/$workspaceId/': typeof WorkspaceWorkspaceIdIndexRoute
+  '/workspace/$workspaceId/chat/$chatId': typeof WorkspaceWorkspaceIdChatChatIdRoute
+  '/workspace/$workspaceId/conflicts/$conflictId': typeof WorkspaceWorkspaceIdConflictsConflictIdRoute
+  '/workspace/$workspaceId/entity/$entityId': typeof WorkspaceWorkspaceIdEntityEntityIdRoute
+  '/workspace/$workspaceId/conflicts/': typeof WorkspaceWorkspaceIdConflictsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/settings'
+    | '/signup'
+    | '/settings/profile'
+    | '/workspace/$workspaceId'
+    | '/settings/'
+    | '/workspace/$workspaceId/audit-log'
+    | '/workspace/$workspaceId/ingestion'
+    | '/workspace/$workspaceId/'
+    | '/workspace/$workspaceId/chat/$chatId'
+    | '/workspace/$workspaceId/conflicts/$conflictId'
+    | '/workspace/$workspaceId/entity/$entityId'
+    | '/workspace/$workspaceId/conflicts/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/login'
+    | '/signup'
+    | '/settings/profile'
+    | '/settings'
+    | '/workspace/$workspaceId/audit-log'
+    | '/workspace/$workspaceId/ingestion'
+    | '/workspace/$workspaceId'
+    | '/workspace/$workspaceId/chat/$chatId'
+    | '/workspace/$workspaceId/conflicts/$conflictId'
+    | '/workspace/$workspaceId/entity/$entityId'
+    | '/workspace/$workspaceId/conflicts'
+  id:
+    | '__root__'
+    | '/'
+    | '/login'
+    | '/settings'
+    | '/signup'
+    | '/settings/profile'
+    | '/workspace/$workspaceId'
+    | '/settings/'
+    | '/workspace/$workspaceId/audit-log'
+    | '/workspace/$workspaceId/ingestion'
+    | '/workspace/$workspaceId/'
+    | '/workspace/$workspaceId/chat/$chatId'
+    | '/workspace/$workspaceId/conflicts/$conflictId'
+    | '/workspace/$workspaceId/entity/$entityId'
+    | '/workspace/$workspaceId/conflicts/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LoginRoute: typeof LoginRoute
+  SettingsRoute: typeof SettingsRouteWithChildren
+  SignupRoute: typeof SignupRoute
+  WorkspaceWorkspaceIdRoute: typeof WorkspaceWorkspaceIdRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +215,146 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings/': {
+      id: '/settings/'
+      path: '/'
+      fullPath: '/settings/'
+      preLoaderRoute: typeof SettingsIndexRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/profile': {
+      id: '/settings/profile'
+      path: '/profile'
+      fullPath: '/settings/profile'
+      preLoaderRoute: typeof SettingsProfileRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/workspace/$workspaceId': {
+      id: '/workspace/$workspaceId'
+      path: '/workspace/$workspaceId'
+      fullPath: '/workspace/$workspaceId'
+      preLoaderRoute: typeof WorkspaceWorkspaceIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/workspace/$workspaceId/': {
+      id: '/workspace/$workspaceId/'
+      path: '/'
+      fullPath: '/workspace/$workspaceId/'
+      preLoaderRoute: typeof WorkspaceWorkspaceIdIndexRouteImport
+      parentRoute: typeof WorkspaceWorkspaceIdRoute
+    }
+    '/workspace/$workspaceId/audit-log': {
+      id: '/workspace/$workspaceId/audit-log'
+      path: '/audit-log'
+      fullPath: '/workspace/$workspaceId/audit-log'
+      preLoaderRoute: typeof WorkspaceWorkspaceIdAuditLogRouteImport
+      parentRoute: typeof WorkspaceWorkspaceIdRoute
+    }
+    '/workspace/$workspaceId/ingestion': {
+      id: '/workspace/$workspaceId/ingestion'
+      path: '/ingestion'
+      fullPath: '/workspace/$workspaceId/ingestion'
+      preLoaderRoute: typeof WorkspaceWorkspaceIdIngestionRouteImport
+      parentRoute: typeof WorkspaceWorkspaceIdRoute
+    }
+    '/workspace/$workspaceId/chat/$chatId': {
+      id: '/workspace/$workspaceId/chat/$chatId'
+      path: '/chat/$chatId'
+      fullPath: '/workspace/$workspaceId/chat/$chatId'
+      preLoaderRoute: typeof WorkspaceWorkspaceIdChatChatIdRouteImport
+      parentRoute: typeof WorkspaceWorkspaceIdRoute
+    }
+    '/workspace/$workspaceId/conflicts/': {
+      id: '/workspace/$workspaceId/conflicts/'
+      path: '/conflicts'
+      fullPath: '/workspace/$workspaceId/conflicts/'
+      preLoaderRoute: typeof WorkspaceWorkspaceIdConflictsIndexRouteImport
+      parentRoute: typeof WorkspaceWorkspaceIdRoute
+    }
+    '/workspace/$workspaceId/conflicts/$conflictId': {
+      id: '/workspace/$workspaceId/conflicts/$conflictId'
+      path: '/conflicts/$conflictId'
+      fullPath: '/workspace/$workspaceId/conflicts/$conflictId'
+      preLoaderRoute: typeof WorkspaceWorkspaceIdConflictsConflictIdRouteImport
+      parentRoute: typeof WorkspaceWorkspaceIdRoute
+    }
+    '/workspace/$workspaceId/entity/$entityId': {
+      id: '/workspace/$workspaceId/entity/$entityId'
+      path: '/entity/$entityId'
+      fullPath: '/workspace/$workspaceId/entity/$entityId'
+      preLoaderRoute: typeof WorkspaceWorkspaceIdEntityEntityIdRouteImport
+      parentRoute: typeof WorkspaceWorkspaceIdRoute
+    }
   }
 }
 
+interface SettingsRouteChildren {
+  SettingsProfileRoute: typeof SettingsProfileRoute
+  SettingsIndexRoute: typeof SettingsIndexRoute
+}
+
+const SettingsRouteChildren: SettingsRouteChildren = {
+  SettingsProfileRoute: SettingsProfileRoute,
+  SettingsIndexRoute: SettingsIndexRoute,
+}
+
+const SettingsRouteWithChildren = SettingsRoute._addFileChildren(
+  SettingsRouteChildren,
+)
+
+interface WorkspaceWorkspaceIdRouteChildren {
+  WorkspaceWorkspaceIdAuditLogRoute: typeof WorkspaceWorkspaceIdAuditLogRoute
+  WorkspaceWorkspaceIdIngestionRoute: typeof WorkspaceWorkspaceIdIngestionRoute
+  WorkspaceWorkspaceIdIndexRoute: typeof WorkspaceWorkspaceIdIndexRoute
+  WorkspaceWorkspaceIdChatChatIdRoute: typeof WorkspaceWorkspaceIdChatChatIdRoute
+  WorkspaceWorkspaceIdConflictsConflictIdRoute: typeof WorkspaceWorkspaceIdConflictsConflictIdRoute
+  WorkspaceWorkspaceIdEntityEntityIdRoute: typeof WorkspaceWorkspaceIdEntityEntityIdRoute
+  WorkspaceWorkspaceIdConflictsIndexRoute: typeof WorkspaceWorkspaceIdConflictsIndexRoute
+}
+
+const WorkspaceWorkspaceIdRouteChildren: WorkspaceWorkspaceIdRouteChildren = {
+  WorkspaceWorkspaceIdAuditLogRoute: WorkspaceWorkspaceIdAuditLogRoute,
+  WorkspaceWorkspaceIdIngestionRoute: WorkspaceWorkspaceIdIngestionRoute,
+  WorkspaceWorkspaceIdIndexRoute: WorkspaceWorkspaceIdIndexRoute,
+  WorkspaceWorkspaceIdChatChatIdRoute: WorkspaceWorkspaceIdChatChatIdRoute,
+  WorkspaceWorkspaceIdConflictsConflictIdRoute:
+    WorkspaceWorkspaceIdConflictsConflictIdRoute,
+  WorkspaceWorkspaceIdEntityEntityIdRoute:
+    WorkspaceWorkspaceIdEntityEntityIdRoute,
+  WorkspaceWorkspaceIdConflictsIndexRoute:
+    WorkspaceWorkspaceIdConflictsIndexRoute,
+}
+
+const WorkspaceWorkspaceIdRouteWithChildren =
+  WorkspaceWorkspaceIdRoute._addFileChildren(WorkspaceWorkspaceIdRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LoginRoute: LoginRoute,
+  SettingsRoute: SettingsRouteWithChildren,
+  SignupRoute: SignupRoute,
+  WorkspaceWorkspaceIdRoute: WorkspaceWorkspaceIdRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
