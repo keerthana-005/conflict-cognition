@@ -12,6 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as WorkspaceWorkspaceIdRouteImport } from './routes/workspace.$workspaceId'
+import { Route as WorkspaceWorkspaceIdIndexRouteImport } from './routes/workspace.$workspaceId.index'
+import { Route as WorkspaceWorkspaceIdChatChatIdRouteImport } from './routes/workspace.$workspaceId.chat.$chatId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +31,79 @@ const SignupRoute = SignupRouteImport.update({
   path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WorkspaceWorkspaceIdRoute = WorkspaceWorkspaceIdRouteImport.update({
+  id: '/workspace/$workspaceId',
+  path: '/workspace/$workspaceId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkspaceWorkspaceIdIndexRoute =
+  WorkspaceWorkspaceIdIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => WorkspaceWorkspaceIdRoute,
+  } as any)
+const WorkspaceWorkspaceIdChatChatIdRoute =
+  WorkspaceWorkspaceIdChatChatIdRouteImport.update({
+    id: '/chat/$chatId',
+    path: '/chat/$chatId',
+    getParentRoute: () => WorkspaceWorkspaceIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/workspace/$workspaceId': typeof WorkspaceWorkspaceIdRouteWithChildren
+  '/workspace/$workspaceId/': typeof WorkspaceWorkspaceIdIndexRoute
+  '/workspace/$workspaceId/chat/$chatId': typeof WorkspaceWorkspaceIdChatChatIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/workspace/$workspaceId': typeof WorkspaceWorkspaceIdIndexRoute
+  '/workspace/$workspaceId/chat/$chatId': typeof WorkspaceWorkspaceIdChatChatIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/workspace/$workspaceId': typeof WorkspaceWorkspaceIdRouteWithChildren
+  '/workspace/$workspaceId/': typeof WorkspaceWorkspaceIdIndexRoute
+  '/workspace/$workspaceId/chat/$chatId': typeof WorkspaceWorkspaceIdChatChatIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/signup'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/signup'
+    | '/workspace/$workspaceId'
+    | '/workspace/$workspaceId/'
+    | '/workspace/$workspaceId/chat/$chatId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/signup'
-  id: '__root__' | '/' | '/login' | '/signup'
+  to:
+    | '/'
+    | '/login'
+    | '/signup'
+    | '/workspace/$workspaceId'
+    | '/workspace/$workspaceId/chat/$chatId'
+  id:
+    | '__root__'
+    | '/'
+    | '/login'
+    | '/signup'
+    | '/workspace/$workspaceId'
+    | '/workspace/$workspaceId/'
+    | '/workspace/$workspaceId/chat/$chatId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
   SignupRoute: typeof SignupRoute
+  WorkspaceWorkspaceIdRoute: typeof WorkspaceWorkspaceIdRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -82,13 +129,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/workspace/$workspaceId': {
+      id: '/workspace/$workspaceId'
+      path: '/workspace/$workspaceId'
+      fullPath: '/workspace/$workspaceId'
+      preLoaderRoute: typeof WorkspaceWorkspaceIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/workspace/$workspaceId/': {
+      id: '/workspace/$workspaceId/'
+      path: '/'
+      fullPath: '/workspace/$workspaceId/'
+      preLoaderRoute: typeof WorkspaceWorkspaceIdIndexRouteImport
+      parentRoute: typeof WorkspaceWorkspaceIdRoute
+    }
+    '/workspace/$workspaceId/chat/$chatId': {
+      id: '/workspace/$workspaceId/chat/$chatId'
+      path: '/chat/$chatId'
+      fullPath: '/workspace/$workspaceId/chat/$chatId'
+      preLoaderRoute: typeof WorkspaceWorkspaceIdChatChatIdRouteImport
+      parentRoute: typeof WorkspaceWorkspaceIdRoute
+    }
   }
 }
+
+interface WorkspaceWorkspaceIdRouteChildren {
+  WorkspaceWorkspaceIdIndexRoute: typeof WorkspaceWorkspaceIdIndexRoute
+  WorkspaceWorkspaceIdChatChatIdRoute: typeof WorkspaceWorkspaceIdChatChatIdRoute
+}
+
+const WorkspaceWorkspaceIdRouteChildren: WorkspaceWorkspaceIdRouteChildren = {
+  WorkspaceWorkspaceIdIndexRoute: WorkspaceWorkspaceIdIndexRoute,
+  WorkspaceWorkspaceIdChatChatIdRoute: WorkspaceWorkspaceIdChatChatIdRoute,
+}
+
+const WorkspaceWorkspaceIdRouteWithChildren =
+  WorkspaceWorkspaceIdRoute._addFileChildren(WorkspaceWorkspaceIdRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
   SignupRoute: SignupRoute,
+  WorkspaceWorkspaceIdRoute: WorkspaceWorkspaceIdRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
