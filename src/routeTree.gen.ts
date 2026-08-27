@@ -11,7 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as SettingsIndexRouteImport } from './routes/settings.index'
+import { Route as SettingsProfileRouteImport } from './routes/settings.profile'
 import { Route as WorkspaceWorkspaceIdRouteImport } from './routes/workspace.$workspaceId'
 import { Route as WorkspaceWorkspaceIdIndexRouteImport } from './routes/workspace.$workspaceId.index'
 import { Route as WorkspaceWorkspaceIdAuditLogRouteImport } from './routes/workspace.$workspaceId.audit-log'
@@ -31,10 +34,25 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
   path: '/signup',
   getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsIndexRoute = SettingsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SettingsRoute,
+} as any)
+const SettingsProfileRoute = SettingsProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => SettingsRoute,
 } as any)
 const WorkspaceWorkspaceIdRoute = WorkspaceWorkspaceIdRouteImport.update({
   id: '/workspace/$workspaceId',
@@ -87,8 +105,11 @@ const WorkspaceWorkspaceIdEntityEntityIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/settings': typeof SettingsRouteWithChildren
   '/signup': typeof SignupRoute
+  '/settings/profile': typeof SettingsProfileRoute
   '/workspace/$workspaceId': typeof WorkspaceWorkspaceIdRouteWithChildren
+  '/settings/': typeof SettingsIndexRoute
   '/workspace/$workspaceId/audit-log': typeof WorkspaceWorkspaceIdAuditLogRoute
   '/workspace/$workspaceId/ingestion': typeof WorkspaceWorkspaceIdIngestionRoute
   '/workspace/$workspaceId/': typeof WorkspaceWorkspaceIdIndexRoute
@@ -101,6 +122,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/settings/profile': typeof SettingsProfileRoute
+  '/settings': typeof SettingsIndexRoute
   '/workspace/$workspaceId/audit-log': typeof WorkspaceWorkspaceIdAuditLogRoute
   '/workspace/$workspaceId/ingestion': typeof WorkspaceWorkspaceIdIngestionRoute
   '/workspace/$workspaceId': typeof WorkspaceWorkspaceIdIndexRoute
@@ -113,8 +136,11 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/settings': typeof SettingsRouteWithChildren
   '/signup': typeof SignupRoute
+  '/settings/profile': typeof SettingsProfileRoute
   '/workspace/$workspaceId': typeof WorkspaceWorkspaceIdRouteWithChildren
+  '/settings/': typeof SettingsIndexRoute
   '/workspace/$workspaceId/audit-log': typeof WorkspaceWorkspaceIdAuditLogRoute
   '/workspace/$workspaceId/ingestion': typeof WorkspaceWorkspaceIdIngestionRoute
   '/workspace/$workspaceId/': typeof WorkspaceWorkspaceIdIndexRoute
@@ -128,8 +154,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/login'
+    | '/settings'
     | '/signup'
+    | '/settings/profile'
     | '/workspace/$workspaceId'
+    | '/settings/'
     | '/workspace/$workspaceId/audit-log'
     | '/workspace/$workspaceId/ingestion'
     | '/workspace/$workspaceId/'
@@ -142,6 +171,8 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/signup'
+    | '/settings/profile'
+    | '/settings'
     | '/workspace/$workspaceId/audit-log'
     | '/workspace/$workspaceId/ingestion'
     | '/workspace/$workspaceId'
@@ -153,8 +184,11 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/login'
+    | '/settings'
     | '/signup'
+    | '/settings/profile'
     | '/workspace/$workspaceId'
+    | '/settings/'
     | '/workspace/$workspaceId/audit-log'
     | '/workspace/$workspaceId/ingestion'
     | '/workspace/$workspaceId/'
@@ -167,6 +201,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
+  SettingsRoute: typeof SettingsRouteWithChildren
   SignupRoute: typeof SignupRoute
   WorkspaceWorkspaceIdRoute: typeof WorkspaceWorkspaceIdRouteWithChildren
 }
@@ -187,12 +222,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/signup': {
       id: '/signup'
       path: '/signup'
       fullPath: '/signup'
       preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/settings/': {
+      id: '/settings/'
+      path: '/'
+      fullPath: '/settings/'
+      preLoaderRoute: typeof SettingsIndexRouteImport
+      parentRoute: typeof SettingsRoute
+    }
+    '/settings/profile': {
+      id: '/settings/profile'
+      path: '/profile'
+      fullPath: '/settings/profile'
+      preLoaderRoute: typeof SettingsProfileRouteImport
+      parentRoute: typeof SettingsRoute
     }
     '/workspace/$workspaceId': {
       id: '/workspace/$workspaceId'
@@ -253,6 +309,20 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface SettingsRouteChildren {
+  SettingsProfileRoute: typeof SettingsProfileRoute
+  SettingsIndexRoute: typeof SettingsIndexRoute
+}
+
+const SettingsRouteChildren: SettingsRouteChildren = {
+  SettingsProfileRoute: SettingsProfileRoute,
+  SettingsIndexRoute: SettingsIndexRoute,
+}
+
+const SettingsRouteWithChildren = SettingsRoute._addFileChildren(
+  SettingsRouteChildren,
+)
+
 interface WorkspaceWorkspaceIdRouteChildren {
   WorkspaceWorkspaceIdAuditLogRoute: typeof WorkspaceWorkspaceIdAuditLogRoute
   WorkspaceWorkspaceIdIngestionRoute: typeof WorkspaceWorkspaceIdIngestionRoute
@@ -282,6 +352,7 @@ const WorkspaceWorkspaceIdRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
+  SettingsRoute: SettingsRouteWithChildren,
   SignupRoute: SignupRoute,
   WorkspaceWorkspaceIdRoute: WorkspaceWorkspaceIdRouteWithChildren,
 }
