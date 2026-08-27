@@ -15,6 +15,8 @@ import { Route as SignupRouteImport } from './routes/signup'
 import { Route as WorkspaceWorkspaceIdRouteImport } from './routes/workspace.$workspaceId'
 import { Route as WorkspaceWorkspaceIdIndexRouteImport } from './routes/workspace.$workspaceId.index'
 import { Route as WorkspaceWorkspaceIdChatChatIdRouteImport } from './routes/workspace.$workspaceId.chat.$chatId'
+import { Route as WorkspaceWorkspaceIdConflictsIndexRouteImport } from './routes/workspace.$workspaceId.conflicts.index'
+import { Route as WorkspaceWorkspaceIdConflictsConflictIdRouteImport } from './routes/workspace.$workspaceId.conflicts.$conflictId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -48,6 +50,18 @@ const WorkspaceWorkspaceIdChatChatIdRoute =
     path: '/chat/$chatId',
     getParentRoute: () => WorkspaceWorkspaceIdRoute,
   } as any)
+const WorkspaceWorkspaceIdConflictsIndexRoute =
+  WorkspaceWorkspaceIdConflictsIndexRouteImport.update({
+    id: '/conflicts/',
+    path: '/conflicts/',
+    getParentRoute: () => WorkspaceWorkspaceIdRoute,
+  } as any)
+const WorkspaceWorkspaceIdConflictsConflictIdRoute =
+  WorkspaceWorkspaceIdConflictsConflictIdRouteImport.update({
+    id: '/conflicts/$conflictId',
+    path: '/conflicts/$conflictId',
+    getParentRoute: () => WorkspaceWorkspaceIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -56,6 +70,8 @@ export interface FileRoutesByFullPath {
   '/workspace/$workspaceId': typeof WorkspaceWorkspaceIdRouteWithChildren
   '/workspace/$workspaceId/': typeof WorkspaceWorkspaceIdIndexRoute
   '/workspace/$workspaceId/chat/$chatId': typeof WorkspaceWorkspaceIdChatChatIdRoute
+  '/workspace/$workspaceId/conflicts/$conflictId': typeof WorkspaceWorkspaceIdConflictsConflictIdRoute
+  '/workspace/$workspaceId/conflicts/': typeof WorkspaceWorkspaceIdConflictsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -63,6 +79,8 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/workspace/$workspaceId': typeof WorkspaceWorkspaceIdIndexRoute
   '/workspace/$workspaceId/chat/$chatId': typeof WorkspaceWorkspaceIdChatChatIdRoute
+  '/workspace/$workspaceId/conflicts/$conflictId': typeof WorkspaceWorkspaceIdConflictsConflictIdRoute
+  '/workspace/$workspaceId/conflicts': typeof WorkspaceWorkspaceIdConflictsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -72,6 +90,8 @@ export interface FileRoutesById {
   '/workspace/$workspaceId': typeof WorkspaceWorkspaceIdRouteWithChildren
   '/workspace/$workspaceId/': typeof WorkspaceWorkspaceIdIndexRoute
   '/workspace/$workspaceId/chat/$chatId': typeof WorkspaceWorkspaceIdChatChatIdRoute
+  '/workspace/$workspaceId/conflicts/$conflictId': typeof WorkspaceWorkspaceIdConflictsConflictIdRoute
+  '/workspace/$workspaceId/conflicts/': typeof WorkspaceWorkspaceIdConflictsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -82,6 +102,8 @@ export interface FileRouteTypes {
     | '/workspace/$workspaceId'
     | '/workspace/$workspaceId/'
     | '/workspace/$workspaceId/chat/$chatId'
+    | '/workspace/$workspaceId/conflicts/$conflictId'
+    | '/workspace/$workspaceId/conflicts/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -89,6 +111,8 @@ export interface FileRouteTypes {
     | '/signup'
     | '/workspace/$workspaceId'
     | '/workspace/$workspaceId/chat/$chatId'
+    | '/workspace/$workspaceId/conflicts/$conflictId'
+    | '/workspace/$workspaceId/conflicts'
   id:
     | '__root__'
     | '/'
@@ -97,6 +121,8 @@ export interface FileRouteTypes {
     | '/workspace/$workspaceId'
     | '/workspace/$workspaceId/'
     | '/workspace/$workspaceId/chat/$chatId'
+    | '/workspace/$workspaceId/conflicts/$conflictId'
+    | '/workspace/$workspaceId/conflicts/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -150,17 +176,37 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorkspaceWorkspaceIdChatChatIdRouteImport
       parentRoute: typeof WorkspaceWorkspaceIdRoute
     }
+    '/workspace/$workspaceId/conflicts/': {
+      id: '/workspace/$workspaceId/conflicts/'
+      path: '/conflicts'
+      fullPath: '/workspace/$workspaceId/conflicts/'
+      preLoaderRoute: typeof WorkspaceWorkspaceIdConflictsIndexRouteImport
+      parentRoute: typeof WorkspaceWorkspaceIdRoute
+    }
+    '/workspace/$workspaceId/conflicts/$conflictId': {
+      id: '/workspace/$workspaceId/conflicts/$conflictId'
+      path: '/conflicts/$conflictId'
+      fullPath: '/workspace/$workspaceId/conflicts/$conflictId'
+      preLoaderRoute: typeof WorkspaceWorkspaceIdConflictsConflictIdRouteImport
+      parentRoute: typeof WorkspaceWorkspaceIdRoute
+    }
   }
 }
 
 interface WorkspaceWorkspaceIdRouteChildren {
   WorkspaceWorkspaceIdIndexRoute: typeof WorkspaceWorkspaceIdIndexRoute
   WorkspaceWorkspaceIdChatChatIdRoute: typeof WorkspaceWorkspaceIdChatChatIdRoute
+  WorkspaceWorkspaceIdConflictsConflictIdRoute: typeof WorkspaceWorkspaceIdConflictsConflictIdRoute
+  WorkspaceWorkspaceIdConflictsIndexRoute: typeof WorkspaceWorkspaceIdConflictsIndexRoute
 }
 
 const WorkspaceWorkspaceIdRouteChildren: WorkspaceWorkspaceIdRouteChildren = {
   WorkspaceWorkspaceIdIndexRoute: WorkspaceWorkspaceIdIndexRoute,
   WorkspaceWorkspaceIdChatChatIdRoute: WorkspaceWorkspaceIdChatChatIdRoute,
+  WorkspaceWorkspaceIdConflictsConflictIdRoute:
+    WorkspaceWorkspaceIdConflictsConflictIdRoute,
+  WorkspaceWorkspaceIdConflictsIndexRoute:
+    WorkspaceWorkspaceIdConflictsIndexRoute,
 }
 
 const WorkspaceWorkspaceIdRouteWithChildren =
