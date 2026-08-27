@@ -177,7 +177,7 @@ export function WorkspaceSidebar() {
                             <Archive className="size-3.5" /> Archive
                           </DropdownMenuItem>
                           <DropdownMenuItem
-                            variant="destructive"
+                            className="text-destructive focus:text-destructive"
                             onClick={() => {
                               deleteChat(chat.id);
                               if (params.chatId === chat.id)

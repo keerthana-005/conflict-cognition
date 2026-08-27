@@ -34,7 +34,7 @@ export function findFact(id: string): Fact | undefined {
   return undefined;
 }
 
-function FactPane({ fact, tone }: { fact?: Fact; tone: "current" | "other" }) {
+function FactPane({ fact, tone }: { fact: Fact | undefined; tone: "current" | "other" }) {
   if (!fact) return null;
   return (
     <div

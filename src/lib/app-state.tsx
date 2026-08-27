@@ -77,7 +77,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     (email) => {
       const found =
         mock.users.find((u) => u.email.toLowerCase() === email.trim().toLowerCase()) ?? null;
-      const account = found ?? mock.users[0];
+      const account = found ?? (mock.users[0] as User);
       if (!found && !email.includes("@")) return { ok: false, error: "Enter a valid email address." };
       setUser(account);
       persist({ user: account, lastWorkspaceId });

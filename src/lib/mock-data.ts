@@ -528,8 +528,8 @@ export function graphFor(conflictId: string): { nodes: GraphNode[]; edges: Graph
       state: f.state,
       validFrom: f.validFrom,
       validTo: f.validTo,
-      x: positions[i % positions.length].x,
-      y: positions[i % positions.length].y,
+      x: positions[i % positions.length]!.x,
+      y: positions[i % positions.length]!.y,
     })),
   ];
 

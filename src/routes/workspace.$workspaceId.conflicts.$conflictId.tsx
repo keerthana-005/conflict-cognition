@@ -170,7 +170,7 @@ function ConflictInspector() {
               max={MAX_YEAR}
               step={1}
               value={[year]}
-              onValueChange={([v]) => setYear(v)}
+              onValueChange={([v]) => setYear(v ?? year)}
             />
             <div className="mt-1 flex justify-between font-mono text-[10px] text-muted-foreground">
               <span>{MIN_YEAR}</span>

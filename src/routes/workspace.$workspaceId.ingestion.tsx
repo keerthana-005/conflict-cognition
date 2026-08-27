@@ -59,7 +59,7 @@ function IngestionPage() {
         prev.map((d) => {
           if (d.status === "complete" || d.status === "failed") return d;
           const i = STAGES.indexOf(d.status);
-          const next = STAGES[Math.min(i + 1, STAGES.length - 1)];
+          const next = STAGES[Math.min(i + 1, STAGES.length - 1)]!;
           return {
             ...d,
             status: next,
