@@ -138,9 +138,9 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const setLastWorkspaceId = useCallback(
     (id: string) => {
       setLastWs(id);
-      persist({ user, lastWorkspaceId: id });
+      if (hydrated) persist({ user, lastWorkspaceId: id });
     },
-    [persist, user],
+    [hydrated, persist, user],
   );
 
   const createWorkspace = useCallback((name: string) => {

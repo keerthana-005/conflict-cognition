@@ -18,8 +18,8 @@ function WorkspaceLayout() {
   }, [hydrated, user, navigate]);
 
   useEffect(() => {
-    if (workspaceId && workspaceId !== lastWorkspaceId) setLastWorkspaceId(workspaceId);
-  }, [workspaceId, lastWorkspaceId, setLastWorkspaceId]);
+    if (hydrated && workspaceId && workspaceId !== lastWorkspaceId) setLastWorkspaceId(workspaceId);
+  }, [hydrated, workspaceId, lastWorkspaceId, setLastWorkspaceId]);
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">
